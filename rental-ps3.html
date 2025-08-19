@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking PS3 - Rental PS Bogor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      
+      background: linear-gradient(135deg, #000033, #1a003a, #000022);
+      color: #e0e7ff;
+      background-attachment: fixed;
+      
+      background-image: none;
+      animation: none;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    
+    body::before {
+        content: none;
+    }
+
+    
+    body::after {
+      content: none;
+    }
+
+    .pixel-font {
+      font-family: 'Press Start 2P', cursive;
+    }
+    .form-card {
+      background: rgba(15, 15, 30, 0.85); 
+      border: 2px solid #007bff; 
+      border-radius: 20px; 
+      padding: 4rem; 
+      box-shadow: 0 0 30px rgba(0, 123, 255, 0.5), inset 0 0 15px rgba(0, 123, 255, 0.2); 
+      transition: all 0.5s ease-in-out;
+      backdrop-filter: blur(10px); 
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-card::before {
+        content: none;
+    }
+    .form-card:hover {
+        box-shadow: 0 0 45px rgba(0, 123, 255, 0.7), inset 0 0 20px rgba(0, 123, 255, 0.3);
+        transform: translateY(-5px) scale(1.01); 
+    }
+    input, select {
+      width: 100%;
+      padding: 1.8rem; 
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      background-color: rgba(0, 0, 0, 0.5); 
+      border: 2px solid #007bff; 
+      color: #e0e7ff;
+      font-family: 'Inter', sans-serif;
+      border-radius: 15px; 
+      font-size: 1.35rem; 
+      transition: all 0.4s ease;
+      box-shadow: inset 0 0 10px rgba(0, 123, 255, 0.3); 
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 20px #007bff, inset 0 0 12px rgba(0, 123, 255, 0.5); 
+      background-color: rgba(20, 20, 40, 0.8); 
+      border-color: #3399ff; 
+    }
+    select option {
+      color: white;
+      background-color: #00001a; 
+      padding: 0.8rem;
+    }
+    .btn-base {
+      padding: 1.5rem 4rem; 
+      border-radius: 15px; 
+      font-weight: bold;
+      transition: all 0.4s ease;
+      font-size: 1.35rem; 
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      letter-spacing: 1.5px; 
+      text-transform: uppercase;
+    }
+
+    .btn-base::before {
+        content: none;
+    }
+
+    .btn-booking {
+      background: transparent;
+      color: #007bff; 
+      border: 2px solid #007bff;
+      box-shadow: 0 0 18px #007bff;
+    }
+    .btn-booking:hover {
+      background-color: #007bff;
+      color: #e0e7ff; 
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 0 30px #007bff, 0 0 60px rgba(0, 123, 255, 0.6);
+    }
+    .btn-back {
+      background: transparent;
+      color: #9333ea; 
+      border: 2px solid #9333ea;
+      box-shadow: 0 0 18px #9333ea;
+    }
+    .btn-back:hover {
+      background-color: #9333ea;
+      color: #e0e7ff; 
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 0 30px #9333ea, 0 0 60px rgba(147, 51, 234, 0.6);
+    }
+    .section-title {
+      font-size: 3.8rem;
+      margin-bottom: 3.8rem;
+      text-shadow: 3px 3px 0 #007bff, -3px -3px 0 #9333ea; 
+      letter-spacing: 3px;
+      animation: neon-flicker-ps 2s infinite alternate; 
+    }
+
+    @keyframes neon-flicker-ps {
+        0%, 100% {
+            text-shadow: 3px 3px 0 #007bff, -3px -3px 0 #9333ea;
+            opacity: 1;
+        }
+        50% {
+            text-shadow: 3px 3px 0 #007bff, -3px -3px 0 #9333ea, 0 0 15px #007bff, 0 0 15px #9333ea;
+            opacity: 0.95; 
+        }
+    }
+
+    .icon-list-item {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem; 
+        margin-bottom: 1.2rem;
+        font-size: 1.2rem; 
+    }
+    .icon-list-item i {
+        font-size: 2.8rem; 
+        color: #007bff; 
+        text-shadow: 0 0 12px rgba(0, 123, 255, 0.7); 
+    }
+    
+    #harga-display {
+      background: rgba(0, 123, 255, 0.1); 
+      border: 2px dashed #007bff; 
+      color: #007bff;
+      font-family: 'Press Start 2P', cursive;
+      padding: 1.5rem; 
+      margin-top: 2.5rem;
+      border-radius: 15px;
+      box-shadow: inset 0 0 12px rgba(0, 123, 255, 0.5);
+    }
+    #harga-value {
+        font-size: 1.25rem;
+        color: #66b3ff; 
+    }
+    
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #00001a;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(#007bff, #9333ea);
+        border-radius: 10px;
+        border: 2px solid #00001a;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(#3399ff, #cc66ff);
+    }
+
+    
+    .input-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+
+    .input-with-icon {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-with-icon input,
+    .input-with-icon select {
+        padding-right: 4.5rem;
+    }
+
+    .input-right-icon {
+        position: absolute;
+        right: 1.8rem; 
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9333ea; 
+        font-size: 1.8rem; 
+        text-shadow: 0 0 15px rgba(147, 51, 234, 0.8), 0 0 25px rgba(147, 51, 234, 0.5); 
+        pointer-events: none;
+        z-index: 2;
+    }
+    label {
+      font-size: 1.2rem; 
+      margin-bottom: 0.6rem;
+      color: #a0aec0; 
+    }
+
+    
+    .image-display-card {
+        position: relative;
+        border-radius: 20px; 
+        overflow: hidden;
+        box-shadow: 0 0 25px rgba(0, 123, 255, 0.6); 
+        transition: all 0.5s ease-in-out;
+        border: 2px solid #007bff; 
+    }
+    
+    .image-display-card::before {
+        content: none;
+    }
+    .image-display-card img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: 18px; 
+        position: relative;
+        z-index: 2;
+    }
+
+    .image-display-card:hover {
+        transform: scale(1.02); 
+        box-shadow: 0 0 40px rgba(0, 123, 255, 0.8), 0 0 80px rgba(0, 123, 255, 0.5);
+    }
+
+    
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 2.5rem;
+        letter-spacing: 2px;
+      }
+      .form-card {
+        padding: 2.5rem;
+        border-radius: 18px;
+      }
+      input, select {
+        padding: 1.5rem;
+        font-size: 1.15rem;
+        margin-bottom: 1.5rem;
+      }
+      .btn-base {
+        padding: 1.2rem 3rem;
+        font-size: 1.15rem;
+      }
+      .icon-list-item {
+        font-size: 1.1rem;
+        gap: 1.2rem;
+      }
+      .icon-list-item i {
+        font-size: 2.5rem;
+      }
+      .input-right-icon {
+        font-size: 1.7rem;
+        right: 1.5rem;
+      }
+      .input-with-icon input,
+      .input-with-icon select {
+        padding-right: 4.5rem;
+      }
+      label {
+        font-size: 1.1rem;
+      }
+      #harga-display {
+        padding: 1.2rem;
+        font-size: 1.1rem;
+      }
+      #harga-value {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-7xl mx-auto text-center">
+    <h1 class="section-title pixel-font"> Booking PS3</h1>
+
+    
+    <div class="form-card mb-12 text-left p-8">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+    
+        <div class="md:w-1/2 flex-shrink-0">
+          <div class="image-display-card">
+            <img src="https://placehold.co/600x300/000022/007bff?text=PlayStation+3"
+                 alt="PlayStation 3"
+                 class="w-full h-auto" />
+          </div>
+        </div>
+    
+        <div class="md:w-1/2">
+          <h2 class="text-xl md:text-2xl font-bold mb-4 text-blue-300 pixel-font">Paket PS3</h2>
+          <ul class="text-sm md:text-base space-y-4">
+            <li class="icon-list-item">
+              <i class="ph ph-game-controller text-2xl text-blue-400"></i>
+              <span>PS3, 2 Stick, Game Lengkap</span>
+            </li>
+            <li class="icon-list-item">
+              <i class="ph ph-monitor text-2xl text-blue-400"></i>
+              <span>TV LED 32”</span>
+            </li>
+            <li class="icon-list-item">
+              <i class="ph ph-clock text-2xl text-blue-400"></i>
+              <span>Pilihan Durasi Tersedia</span>
+            </li>
+          </ul>
+          <div class="mt-6 text-center md:text-left">
+            <p class="font-bold text-lg md:text-xl">💰 Harga: <span id="display-price-card" class="text-blue-400">Pilih Durasi</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <form id="booking-form" action="#" method="POST" class="form-card text-left max-w-6xl mx-auto space-y-6">
+    
+      <input type="hidden" id="harga" name="harga" value="" />
+
+      <div class="input-wrapper">
+        <label for="nama" class="block mb-2 text-blue-300 font-bold">Nama Lengkap</label>
+        <div class="input-with-icon">
+          <input type="text" id="nama" name="nama" required />
+          <i class="ph ph-user input-right-icon"></i>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="tanggal" class="block mb-2 text-blue-300 font-bold">Tanggal Booking</label>
+        <div class="input-with-icon">
+          <input type="date" id="tanggal" name="tanggal" required />
+          <i class="ph ph-calendar-blank input-right-icon"></i>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="jam" class="block mb-2 text-blue-300 font-bold">Jam Mulai</label>
+        <div class="input-with-icon">
+          <input type="time" id="jam" name="jam" required />
+          <i class="ph ph-clock input-right-icon"></i>
+        </div>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="durasi" class="block mb-2 text-blue-300 font-bold">Durasi</label>
+        <div class="input-with-icon">
+          <select id="durasi" name="durasi" required>
+            <option value="" data-price="">Pilih Durasi</option>
+             <option value="1 jam" data-price="10000">1 Jam - Rp 10.000</option>
+            <option value="3 jam" data-price="25000">3 Jam - Rp 25.000</option>
+            <option value="6 jam" data-price="40000">6 Jam - Rp 40.000</option>
+            <option value="12 jam" data-price="70000">12 Jam - Rp 70.000</option>
+            <option value="24 jam" data-price="130000">24 Jam - Rp 130.000</option>
+          </select>
+          <i class="ph ph-hourglass-simple input-right-icon"></i>
+        </div>
+      </div>
+      
+ 
+      <div id="harga-display" class="hidden">
+        <span class="pixel-font">Harga Pilihan:</span> <span id="harga-value" class="font-bold"></span>
+      </div>
+
+      <div class="input-wrapper">
+        <label for="kontak" class="block mb-2 text-blue-300 font-bold">No. HP / WhatsApp</label>
+        <div class="input-with-icon">
+          <input type="tel" id="kontak" name="kontak" placeholder="08xxxxxxxxxx" required />
+          <i class="ph ph-whatsapp-logo input-right-icon"></i>
+        </div>
+      </div>
+
+      <div class="text-center pt-4">
+        <button type="submit" class="btn-booking btn-base inline-block pixel-font">Kirim Pemesanan</button>
+      </div>
+    </form>
+
+    <div class="text-center mt-10">
+      <a href="paket.html" class="btn-back btn-base inline-block pixel-font">⬅ Kembali ke Paket</a>
+    </div>
+  </div>
+
+<script>
+  
+  const bookingForm = document.getElementById('booking-form');
+  const durasiSelect = document.getElementById('durasi');
+  const hargaHiddenInput = document.getElementById('harga');
+  const displayPriceCard = document.getElementById('display-price-card');
+  const hargaDisplay = document.getElementById('harga-display');
+  const hargaValue = document.getElementById('harga-value');
+
+  
+  function formatRupiah(number) {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(number);
+  }
+
+  
+  durasiSelect.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+
+    if (price) {
+      const formattedPrice = formatRupiah(parseInt(price));
+      displayPriceCard.textContent = formattedPrice;
+      hargaHiddenInput.value = price;
+      
+      hargaDisplay.classList.remove('hidden');
+      hargaValue.textContent = formattedPrice;
+    } else {
+      displayPriceCard.textContent = 'Pilih Durasi';
+      hargaHiddenInput.value = '';
+
+      hargaDisplay.classList.add('hidden');
+      hargaValue.textContent = '';
+    }
+  });
+
+  
+  bookingForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const nama = document.getElementById('nama').value;
+    const tanggal = document.getElementById('tanggal').value;
+    const jam = document.getElementById('jam').value;
+    const durasi = durasiSelect.value;
+    const kontak = document.getElementById('kontak').value;
+    const harga = hargaHiddenInput.value;
+
+    if (!durasi || !harga) {
+        
+        showCustomMessageBox('Mohon Pilih Durasi Terlebih Dahulu.'); 
+        return;
+    }
+
+    const bookingData = {
+      nama: nama,
+      paket: 'PS3',
+      tanggal: tanggal,
+      jam: jam,
+      durasi: durasi,
+      harga: harga,
+      kontak: kontak
+    };
+
+    localStorage.setItem('lastBooking', JSON.stringify(bookingData));
+    window.location.href = 'berhasil.html';
+  });
+
+  
+  function showCustomMessageBox(message) {
+  
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    `;
+
+  
+    const messageBox = document.createElement('div');
+    messageBox.style.cssText = `
+      background: #1a1a2e;
+      border: 2px solid #007bff; /* Blue border for message box */
+      border-radius: 15px;
+      padding: 2.5rem;
+      text-align: center;
+      color: #e0e7ff;
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 0 25px rgba(0, 123, 255, 0.7); /* Blue glow for message box */
+      max-width: 90%;
+      width: 450px;
+    `;
+
+  
+    const messageText = document.createElement('p');
+    messageText.textContent = message;
+    messageText.style.cssText = `
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    `;
+
+  
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'OK';
+    closeButton.style.cssText = `
+      background: #007bff; /* Bright Blue button */
+      color: #0a0a1a;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    `;
+    closeButton.onmouseover = () => closeButton.style.transform = 'scale(1.05)';
+    closeButton.onmouseout = () => closeButton.style.transform = 'scale(1)';
+    closeButton.onclick = () => document.body.removeChild(overlay);
+
+    messageBox.appendChild(messageText);
+    messageBox.appendChild(closeButton);
+    overlay.appendChild(messageBox);
+    document.body.appendChild(overlay);
+  }
+</script>
+
+</body>
+</html>

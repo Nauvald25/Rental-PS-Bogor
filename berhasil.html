@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Berhasil - Rental PS Bogor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #f8fafc;
+    }
+    .pixel-font {
+      font-family: 'Press Start 2P', cursive;
+    }
+    .btn-back {
+      margin-top: 2rem;
+      background: transparent;
+      color: #39ff14;
+      border: 2px solid #39ff14;
+      padding: 12px 24px;
+      border-radius: 10px;
+      box-shadow: 0 0 12px #39ff14;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+    .btn-back:hover {
+      background-color: #39ff14;
+      color: #0f0c29;
+      box-shadow: 0 0 20px #39ff14;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+  <div class="max-w-xl w-full text-center p-8 border-2 border-[#39ff14] rounded-lg shadow-2xl bg-slate-900 bg-opacity-70">
+    <h1 class="text-3xl font-bold mb-6 text-lime-300 pixel-font">Booking Berhasil</h1>
+    <p class="text-lg mb-8">Terima kasih telah melakukan booking <br> Silakan tunjukkan QR code ini ke petugas kami</p>
+
+    <div id="qrcode" class="flex justify-center p-3 rounded mb-6 shadow-md bg-white"></div>
+
+    <div id="info" class="text-left text-sm leading-relaxed mb-4"></div>
+
+    <a href="index.html" class="btn-back">⬅ Kembali ke Beranda</a>
+  </div>
+
+<script>
+  const qrcodeContainer = document.getElementById("qrcode");
+  const infoBox = document.getElementById("info");
+
+  
+  function formatRupiah(number) {
+    if (typeof number === 'string') {
+      number = parseInt(number, 10);
+    }
+    if (isNaN(number) || number === undefined) return "Harga tidak valid";
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(number);
+  }
+
+
+  function formatDate(dateString) {
+    if (!dateString || !dateString.includes('-')) return 'Tidak tersedia';
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+  }
+  
+
+  function formatDateTime(dateObject) {
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const year = dateObject.getFullYear();
+    const hours = String(dateObject.getHours()).padStart(2, '0');
+    const minutes = String(dateObject.getMinutes()).padStart(2, '0');
+    const seconds = String(dateObject.getSeconds()).padStart(2, '0');
+    return `${day}-${month}-${year}, ${hours}:${minutes}:${seconds}`;
+  }
+
+
+  function generateRandomLetters(length) {
+    const characters = 'abcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
+
+
+  function generateRandomNumbers(length) {
+    const characters = '0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  }
+
+
+  const data = JSON.parse(localStorage.getItem("lastBooking"));
+  let bookingId = '';
+
+  if (data) {
+    const [startHour, startMinute] = data.jam.split(':').map(Number);
+    let durationHours;
+    let bookingDurationDisplay;
+    const rawDuration = data.durasi; 
+
+    if (rawDuration === 'Full Day') {
+        durationHours = 24;
+        bookingDurationDisplay = 'Full Day';
+    } else {
+        
+        const match = rawDuration.match(/\d+/);
+        if (match) {
+            durationHours = parseInt(match[0], 10);
+            bookingDurationDisplay = `${durationHours} jam`;
+        } else {
+            durationHours = 0;
+            bookingDurationDisplay = 'Durasi Tidak Valid';
+        }
+    }
+
+    if (isNaN(durationHours)) {
+      infoBox.innerHTML = '<p style="color:red;">Durasi Booking Tidak Valid.</p>';
+    } else {
+      if (startHour >= 7 && startHour < 18) {
+        bookingId = 'RPB-' + generateRandomLetters(8);
+      } else {
+        bookingId = 'RPB-' + generateRandomNumbers(8);
+      }
+
+      const [year, month, day] = data.tanggal.split('-').map(Number);
+      const startTime = new Date(year, month - 1, day, startHour, startMinute);
+
+      const endTime = new Date(startTime.getTime() + durationHours * 60 * 60 * 1000);
+
+      const endDay = String(endTime.getDate()).padStart(2, '0');
+      const endMonth = String(endTime.getMonth() + 1).padStart(2, '0');
+      const endYear = endTime.getFullYear();
+      const endHour = String(endTime.getHours()).padStart(2, '0');
+      const endMinute = String(endTime.getMinutes()).padStart(2, '0');
+
+      const tanggalSelesai = `${endDay}-${endMonth}-${endYear}`;
+      const waktuSelesai = `${endHour}:${endMinute}`;
+      
+      const tanggalBookingFormatted = formatDate(data.tanggal);
+      const waktuBookingDate = new Date();
+      const waktuBookingFormatted = formatDateTime(waktuBookingDate);
+
+      infoBox.innerHTML = `
+        <p><strong>Nama:</strong> ${data.nama}</p>
+        <p><strong>Paket:</strong> ${data.paket}</p>
+        <p><strong>Tanggal Booking:</strong> ${tanggalBookingFormatted}</p>
+        <p><strong>Jam Mulai:</strong> ${data.jam}</p>
+        <p><strong>Durasi:</strong> ${bookingDurationDisplay}</p>
+        <p><strong>Harga:</strong> ${formatRupiah(data.harga)}</p>
+        <p><strong>Tanggal Selesai:</strong> ${tanggalSelesai}</p>
+        <p><strong>Jam Selesai:</strong> ${waktuSelesai}</p>
+      `;
+
+      const bookingData = `Booking rental-ps - ID: ${bookingId}\nNama: ${data.nama}\nPaket: ${data.paket}\nDurasi: ${bookingDurationDisplay}\nJam: ${data.jam}\nSelesai: ${tanggalSelesai} ${waktuSelesai}`;
+      const canvas = document.createElement("canvas");
+      qrcodeContainer.appendChild(canvas);
+
+      QRCode.toCanvas(canvas, bookingData, {
+        width: 180,
+        color: {
+          dark: "#000000",
+          light: "#ffffff"
+        }
+      }, function (error) {
+        if (error) {
+          console.error(error);
+          qrcodeContainer.innerHTML = '<p style="color:red;">QR Gagal Dimuat</p>';
+        }
+      });
+
+      const history = JSON.parse(localStorage.getItem("rental_history")) || [];
+      history.push({
+        id: bookingId,
+        nama: data.nama,
+        paket: data.paket,
+        tanggal: tanggalBookingFormatted,
+        jam: data.jam,
+        durasi: data.durasi,
+        harga: data.harga,
+        tanggalSelesai: tanggalSelesai,
+        waktuSelesai: waktuSelesai,
+        waktuBooking: waktuBookingFormatted
+      });
+      localStorage.setItem("rental_history", JSON.stringify(history));
+    }
+  } else {
+    infoBox.innerHTML = '<p style="color:red;">Data Booking Tidak Ditemukan.</p>';
+  }
+</script>
+</body>
+</html>

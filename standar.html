@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ruangan Standar - Rental PS Bogor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #39ff14;
+    }
+    .glow {
+      text-shadow: 2px 0 red, -2px 0 blue;
+      animation: glitch 1s infinite alternate;
+    }
+    .btn-pixel {
+      border: 2px solid #39ff14;
+      background: transparent;
+      color: #39ff14;
+      padding: 12px 20px;
+      margin-top: 20px;
+      box-shadow: 0 0 10px #39ff14;
+      transition: transform 0.2s ease;
+    }
+    .btn-pixel:hover {
+      background-color: #39ff14;
+      color: black;
+      transform: scale(1.05);
+    }
+    img {
+      border: 3px solid #39ff14;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body class="p-8 min-h-screen">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="glow text-3xl md:text-5xl mb-6">RUANGAN STANDAR</h1>
+    <img src="rental.RPB.png" alt="Ruang Standar" class="w-full h-64 object-cover mb-6"/>
+
+    <div class="text-left text-sm md:text-base mb-6 bg-black border-2 border-green-400 p-6 rounded-lg">
+      <h2 class="text-xl mb-3">🛋️ Fasilitas Standar</h2>
+      <ul class="list-disc ml-6 mb-4">
+        <li>Kipas Angin & Sofa Nyaman</li>
+        <li>TV LED 32 inch</li>
+        <li>PS3/PS4 (tergantung paket)</li>
+  
+      </ul>
+
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-center gap-6">
+      <a href="booking-standar.html" class="btn-pixel">Booking Sekarang</a>
+      <a href="paket.html" class="btn-pixel">⬅ Kembali</a>
+    </div>
+  </div>
+</body>
+</html>

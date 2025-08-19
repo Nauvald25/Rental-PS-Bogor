@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booking Ruangan Standar - Rental PS Bogor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #e0e7ff;
+    }
+    .pixel-font {
+      font-family: 'Press Start 2P', cursive;
+    }
+    .form-card {
+      background: rgba(30, 41, 59, 0.7);
+      border: 2px solid #39ff14;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+      transition: all 0.3s ease-in-out;
+    }
+    .form-card:hover {
+        box-shadow: 0 0 30px rgba(57, 255, 20, 0.8);
+    }
+    input, select {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      background-color: transparent;
+      border: 2px solid #39ff14;
+      color: #e0e7ff;
+      font-family: 'Inter', sans-serif;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+    input:focus, select:focus {
+      outline: none;
+      box-shadow: 0 0 10px #39ff14;
+      background-color: rgba(17, 24, 39, 0.5);
+    }
+    select option {
+      color: white;
+      background-color: #0f0c29;
+    }
+    .btn-booking {
+      background: transparent;
+      color: #39ff14;
+      padding: 1rem 2rem;
+      border: 2px solid #39ff14;
+      border-radius: 12px;
+      box-shadow: 0 0 14px #39ff14;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    .btn-booking:hover {
+      background-color: #39ff14;
+      color: black;
+      transform: scale(1.05);
+    }
+    .btn-back {
+      background: transparent;
+      color: #4a90e2;
+      padding: 1rem 2rem;
+      border: 2px solid #4a90e2;
+      border-radius: 12px;
+      box-shadow: 0 0 14px #4a90e2;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+    .btn-back:hover {
+      background-color: #4a90e2;
+      color: black;
+      transform: scale(1.05);
+    }
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      text-shadow: 1px 1px 0 #0ff, -1px -1px 0 #f0f;
+    }
+    .icon-list-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    #harga-display {
+      background: rgba(57, 255, 20, 0.1);
+      border: 2px dashed #39ff14;
+      color: #39ff14;
+      font-family: 'Press Start 2P', cursive;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body class="p-6 md:p-12 min-h-screen flex items-center justify-center">
+
+  <div class="w-full max-w-4xl text-center">
+    <h1 class="section-title pixel-font">🕹️ Booking Ruangan Standar</h1>
+
+
+    <div class="form-card mb-12 text-left p-8">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+
+        <div class="md:w-1/2 flex-shrink-0">
+          <img src="https://placehold.co/600x300/302b63/39ff14?text=PS3+/+PS4+Standard" 
+               alt="PlayStation 3 atau 4 Standard" 
+               class="rounded-lg shadow-2xl w-full h-auto" />
+        </div>
+
+        <div class="md:w-1/2">
+          <h2 class="text-xl md:text-2xl font-bold mb-4 text-green-300 pixel-font">Paket Ruangan Standar</h2>
+          <ul class="text-sm md:text-base space-y-4">
+            <li class="icon-list-item">
+              <i class="ph ph-game-controller text-2xl text-green-400"></i>
+              <span>PS3 / PS4, 2 Stick, 10 Game</span>
+            </li>
+            <li class="icon-list-item">
+              <i class="ph ph-monitor text-2xl text-green-400"></i>
+              <span>TV LED 32” + Ruangan Kipas</span>
+            </li>
+            <li class="icon-list-item">
+              <i class="ph ph-clock text-2xl text-green-400"></i>
+              <span>Pilihan Durasi Tersedia</span>
+            </li>
+          </ul>
+          <div class="mt-6 text-center md:text-left">
+            <p class="font-bold text-lg md:text-xl">💰 Harga: <span id="display-price-card" class="text-green-400">Pilih Durasi</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <form id="booking-form" action="#" method="POST" class="form-card text-left max-w-2xl mx-auto space-y-6">
+      <input type="hidden" id="harga" name="harga" value="" />
+
+      <div>
+        <label for="nama" class="block mb-2 text-green-300 font-bold">👤 Nama Lengkap</label>
+        <input type="text" id="nama" name="nama" required />
+      </div>
+
+      <div>
+        <label for="tanggal" class="block mb-2 text-green-300 font-bold">📅 Tanggal Booking</label>
+        <input type="date" id="tanggal" name="tanggal" required />
+      </div>
+
+      <div>
+        <label for="jam" class="block mb-2 text-green-300 font-bold">⏰ Jam Mulai</label>
+        <input type="time" id="jam" name="jam" required />
+      </div>
+
+      <div>
+        <label for="durasi" class="block mb-2 text-green-300 font-bold">🕒 Durasi</label>
+        <select id="durasi" name="durasi" required>
+          <option value="" data-price="">Pilih Durasi</option>
+          <option value="1 jam" data-price="20000">1 Jam - Rp 20.000</option>
+          <option value="2 jam" data-price="30000">2 Jam - Rp 30.000</option>
+          <option value="3 jam" data-price="40000">3 Jam - Rp 40.000</option>
+          <option value="4 jam" data-price="50000">4 Jam - Rp 50.000</option>
+          <option value="5 jam" data-price="60000">5 Jam - Rp 60.000</option>
+          <option value="6 jam" data-price="70000">6 Jam - Rp 70.000</option>
+          <option value="7 jam" data-price="80000">7 Jam - Rp 80.000</option>
+          <option value="8 jam" data-price="90000">8 Jam - Rp 90.000</option>
+          <option value="9 jam" data-price="100000">9 Jam - Rp 100.000</option>
+          <option value="10 jam" data-price="110000">10 Jam - Rp 110.000</option>
+          <option value="11 jam" data-price="120000">11 Jam - Rp 120.000</option>
+          <option value="12 jam" data-price="150000">12 Jam - Rp 150.000</option>
+          <option value="Full Day" data-price="250000">Full Day - Rp 250.000</option>
+        </select>
+      </div>
+      
+      <div id="harga-display" class="hidden">
+        <span class="pixel-font">Harga Pilihan:</span> <span id="harga-value" class="font-bold"></span>
+      </div>
+
+      <div>
+        <label for="kontak" class="block mb-2 text-green-300 font-bold">📱 No. HP / WhatsApp</label>
+        <input type="tel" id="kontak" name="kontak" placeholder="08xxxxxxxxxx" required />
+      </div>
+
+      <div class="text-center pt-4">
+        <button type="submit" class="btn-booking inline-block pixel-font">Kirim Pemesanan</button>
+      </div>
+    </form>
+
+    <div class="text-center mt-10">
+      <a href="paket.html" class="btn-back inline-block pixel-font">⬅ Kembali ke Paket</a>
+    </div>
+  </div>
+
+<script>
+  
+  const bookingForm = document.getElementById('booking-form');
+  const durasiSelect = document.getElementById('durasi');
+  const hargaHiddenInput = document.getElementById('harga');
+  const displayPriceCard = document.getElementById('display-price-card');
+  const hargaDisplay = document.getElementById('harga-display');
+  const hargaValue = document.getElementById('harga-value');
+
+  
+  function formatRupiah(number) {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(number);
+  }
+
+  
+  durasiSelect.addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const price = selectedOption.getAttribute('data-price');
+
+    if (price) {
+      const formattedPrice = formatRupiah(price);
+      displayPriceCard.textContent = formattedPrice;
+      hargaHiddenInput.value = price;
+      
+      hargaDisplay.classList.remove('hidden');
+      hargaValue.textContent = formattedPrice;
+    } else {
+      displayPriceCard.textContent = 'Pilih Durasi';
+      hargaHiddenInput.value = '';
+
+      hargaDisplay.classList.add('hidden');
+      hargaValue.textContent = '';
+    }
+  });
+
+  
+  bookingForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const nama = document.getElementById('nama').value;
+    const tanggal = document.getElementById('tanggal').value;
+    const jam = document.getElementById('jam').value;
+    const durasi = durasiSelect.value;
+    const kontak = document.getElementById('kontak').value;
+    const harga = hargaHiddenInput.value;
+
+    if (!durasi || !harga) {
+  
+        alert('Mohon Pilih Durasi Terlebih Dahulu.'); 
+        return;
+    }
+
+    const bookingData = {
+      nama: nama,
+      paket: 'Ruangan Standar',
+      tanggal: tanggal,
+      jam: jam,
+      durasi: durasi,
+      harga: harga,
+      kontak: kontak
+    };
+
+    localStorage.setItem('lastBooking', JSON.stringify(bookingData));
+    window.location.href = 'berhasil.html';
+  });
+</script>
+
+</body>
+</html>

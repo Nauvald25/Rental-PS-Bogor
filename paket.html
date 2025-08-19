@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paket Rental - Rental PS Bogor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: #f0f0f0;
+    }
+
+    .glitch {
+      color: #fff;
+      text-shadow: 0 0 5px #f0f, 0 0 10px #0ff, 0 0 15px #f0f;
+      animation: flicker 1.5s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% { opacity: 0.9; }
+      50% { opacity: 1; }
+      100% { opacity: 0.95; }
+    }
+
+    .card-pixel {
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #f0f;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px #f0f5;
+    }
+
+    .card-pixel:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #0ff9;
+    }
+
+    .btn-back {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #0ff;
+      padding: 10px 20px;
+      margin-top: 40px;
+      display: inline-block;
+      font-size: 12px;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 0 8px #0ff7;
+    }
+
+    .btn-back:hover {
+      background-color: #0ff;
+      color: #000;
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #0ffb;
+    }
+
+    img {
+      border-radius: 10px;
+      border: 2px solid #f0f;
+    }
+     #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .loader-text {
+      color: #39ff14;
+      font-size: 1.5rem;
+      animation: blink 1s infinite;
+    }
+
+     #progress {
+      font-size: 2rem;
+      color: #39ff14;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="p-6 min-h-screen">
+
+  <div id="loader">
+    <div id="progress">Loading... 0%</div>
+    <p class="loader-text">🚀 Memuat Paket...</p>
+  </div>
+
+  <h1 class="text-center text-3xl md:text-5xl mb-12 glitch">🎮 PAKET RENTAL PS 🎮</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+
+    <a href="ps3.html" class="block">
+      <div class="card-pixel">
+        <img src="https://tse1.mm.bing.net/th/id/OIP.JrRR7tHdmICWpb6ylzJ6HgHaD4?pid=Api&P=0&h=180" alt="PS3" class="mb-4 w-full h-40 object-cover">
+        <h2 class="text-xl mb-2 text-pink-400">🎮 PS3 Standard</h2>
+        <p class="text-sm mb-1">Include 2 Stick & 10 Game</p>
+
+      </div>
+    </a>
+
+
+    <!-- PS4 -->
+     <a href="ps4.html" class="block">
+    <div class="card-pixel">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.dDNuJ84zyEsarF7brqWlAAHaEK?pid=Api&P=0&h=180" alt="PS4" class="mb-3 w-full h-40 object-cover">
+      <h2 class="text-xl mb-2">🎮 PS4 + TV LED</h2>
+      <p class="text-sm mb-2">Include 2 Stick & 15 Game</p>
+    </div>
+    </a>
+    <!-- PS5 -->
+     <a href="ps5.html" class="block">
+    <div class="card-pixel">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.X83l08xoPTL7aGfXR-BWiQHaEK?pid=Api&P=0&h=180" alt="PS5" class="mb-3 w-full h-40 object-cover">
+      <h2 class="text-xl mb-2">🎮 PS5 Premium</h2>
+      <p class="text-sm mb-2">Include 2 Stick & 20 Game</p>
+
+    </div>
+    </a>
+    <!-- VIP Room -->
+     <a href="vip.html" class="block">
+    <div class="card-pixel">
+      <img src="https://asset-a.grid.id/crop/0x0:0x0/700x465/photo/2020/02/24/834103230.jpg" alt="Ruang VIP" class="mb-3 w-full h-40 object-cover">
+      <h2 class="text-xl mb-2">🎮 Ruangan VIP</h2>
+      <p class="text-sm mb-2">AC, Sofa Premium, LED 50", Sound System</p>
+
+    </div>
+    </a>
+    <!-- Ruang Standar -->
+     <a href="standar.html" class="block">
+    <div class="card-pixel">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.I1MTok1cfWdsGYgH_MaRrAHaE7?pid=Api&P=0&h=180" alt="Ruang Standar" class="mb-3 w-full h-40 object-cover">
+      <h2 class="text-xl mb-2">🎮 Ruangan Standar</h2>
+      <p class="text-sm mb-2">Kipas, Sofa, LED 32"</p>
+
+    </div>
+    </a>
+    <!-- Ruang Ekonomi -->
+     <a href="ekonomi.html" class="block">
+    <div class="card-pixel">
+      <img src="https://tse4.mm.bing.net/th/id/OIP.cgf3plf6eDq8LiXKrzG_ZgHaC1?pid=Api&P=0&h=180" alt="Ruang Ekonomi" class="mb-3 w-full h-40 object-cover">
+      <h2 class="text-xl mb-2">🎮 Ruangan Ekonomi</h2>
+      <p class="text-sm mb-2">Tanpa Sofa, LED 24", Kipas</p>
+    </div>
+    </a>
+  </div>
+
+  <div class="text-center mt-10">
+    <a href="index.html" class="btn-back">⬅ Kembali ke Beranda</a>
+  </div>
+
+<script>
+    const progressText = document.getElementById("progress");
+    let count = 0;
+    const duration = 20 * 100;
+    const intervalTime = duration / 100;
+
+    const interval = setInterval(() => {
+      count++;
+      progressText.textContent = `Loading... ${count}%`;
+      if (count >= 100) {
+        clearInterval(interval);
+        document.getElementById("loader").style.display = "none";
+      }
+    }, intervalTime);
+  </script>
+
+
+</body>
+</html>
